@@ -1,0 +1,27 @@
+version: '2'
+services:
+  elasticsearch:
+    image: elasticsearch:5.2.0
+    networks:
+     - es
+    volumes:
+     - /root/es/config:/usr/share/elasticsearch/config
+     - /root/es/data:/usr/share/elasticsearch/data
+  haproxy:
+    image: pixerapp/haproxy:1.2.2-haproxy-1.7.2
+    environment:
+     - DNS_TCP_ADDR=127.0.0.1
+     - DNS_TCP_PORT=53
+     - FLOATING_IP=*
+    networks:
+     - es
+    ports:
+     - 80:80
+     - 443:443
+    volumes:
+     - /etc/ssl/pixerapp.com/:/etc/ssl/pixerapp.com
+     - /root/haproxy/haproxy.cfg:/usr/local/etc/haproxy/haproxy.cfg
+
+networks:
+  es:
+    driver: bridge
