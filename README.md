@@ -32,7 +32,7 @@ docker-machine create \
   --driver digitalocean \
   --digitalocean-access-token token \
   --digitalocean-image ubuntu-16-04-x64 \
-  --digitalocean-size 512mb \
+  --digitalocean-size 1g \
   --digitalocean-region sgp1 \
   --digitalocean-ipv6 \
   --digitalocean-private-networking \

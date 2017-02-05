@@ -1,12 +1,27 @@
-version: '2'
+version: '3'
 services:
-  elasticsearch:
+  elasticsearch1:
     image: elasticsearch:5.2.0
+    container_name: elasticsearch1
+    environment:
+     - cluster.name=pixerapp-es
+     - node.name=elasticsearch1
+     - bootstrap.memory_lock=true
+     - "ES_JAVA_OPTS=-Xms350m -Xmx350m"
+    ulimits:
+     memlock:
+      soft: -1
+      hard: -1
+     nofile:
+      soft: 65536
+      hard: 65536
+    cap_add:
+     - IPC_LOCK
     networks:
-     - es
+     - esnet
     volumes:
      - /root/es/config:/usr/share/elasticsearch/config
-     - /root/es/data:/usr/share/elasticsearch/data
+     - esdata1:/usr/share/elasticsearch/data
   haproxy:
     image: pixerapp/haproxy:1.2.2-haproxy-1.7.2
     environment:
@@ -14,7 +29,7 @@ services:
      - DNS_TCP_PORT=53
      - FLOATING_IP=*
     networks:
-     - es
+     - esnet
     ports:
      - 80:80
      - 443:443
@@ -23,5 +38,9 @@ services:
      - /root/haproxy/haproxy.cfg:/usr/local/etc/haproxy/haproxy.cfg
 
 networks:
-  es:
+  esnet:
     driver: bridge
+
+volumes:
+  esdata1:
+    driver: local
