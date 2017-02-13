@@ -82,3 +82,7 @@ $ top
 KiB Mem :  1016216 total,   834352 free,    83200 used,    98664 buff/cache
 KiB Swap:        0 total,        0 free,        0 used.   800508 avail Mem
 ```
+
+## Resources
+
+- [Elasticsearch Configurations in Docker](https://www.elastic.co/guide/en/elasticsearch/reference/current/docker.html)

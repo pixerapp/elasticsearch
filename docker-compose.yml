@@ -25,9 +25,10 @@ services:
   haproxy:
     image: pixerapp/haproxy:1.2.2-haproxy-1.7.2
     environment:
-     - DNS_TCP_ADDR=127.0.0.1
+     - DNS_TCP_ADDR=127.0.0.11
      - DNS_TCP_PORT=53
      - FLOATING_IP=*
+     - STATSAUTH=admin:password
     networks:
      - esnet
     ports:
